@@ -1,15 +1,15 @@
 ```
-### © 2019 Netxillon Technologies.
-### Author: Gurmukh Singh
-### Email: trainings@netxillon.com
-### Date: 22-06-2020
+# © 2019 Netxillon Technologies.
+# Author: Gurmukh Singh
+# Email: trainings@netxillon.com
+# Date: 22-06-2020
 ```
 ```
-##### You are free to use these as long as you acknowledge it back to the source and give due credit.
-##### There is no guarantee for the use of these scripts/roles and the author
-##### is in no way liable for any damange caused by the use of these scripts.
+# You are free to use these as long as you acknowledge it back to the source and give due credit.
+# There is no guarantee for the use of these scripts/roles and the author
+# is in no way liable for any damange caused by the use of these scripts.
 ```
-###### This playbook does the below:
+##### This playbook does the below:
 
 >1. Setup ssh passphraseless access and sudoers files if needed.
 >2. Optimize the Centos/RedHat machines in terms of sysctl, limits, network, swap, SElinux, THP
