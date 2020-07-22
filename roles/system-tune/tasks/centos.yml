@@ -1,0 +1,7 @@
+---
+- name: Setup repo
+  template: src=centos_repo.yml dest=/etc/yum.repos.d/centos.repo
+
+- name:          Clean repo
+  shell:         rm -rf /etc/yum.repos.d/Centos*
+  ignore_errors: yes

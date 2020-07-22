@@ -1,0 +1,35 @@
+[centos7-base]
+name=Centos 7
+baseurl=http://gateway.cluster1.com/repo/centos7/base/
+gpgcheck=0
+enabled=1
+
+[centos7-updates]
+name=Centos 7
+baseurl=http://gateway.cluster1.com/repo/centos7/updates/
+gpgcheck=0
+enabled=1
+
+[centos7-kernel]
+name=Centos 7
+baseurl=http://gateway.cluster1.com/repo/centos7/centos-kernel/
+gpgcheck=0
+enabled=1
+
+[centos7-centosplus]
+name=Centos 7
+baseurl=http://gateway.cluster1.com/repo/centos7/centosplus/
+gpgcheck=0
+enabled=1
+
+[centos7-extras]
+name=Centos 7
+baseurl=http://gateway.cluster1.com/repo/centos7/extras/
+gpgcheck=0
+enabled=1
+
+[centos7-epel]
+name=Centos 7
+baseurl=http://gateway.cluster1.com/repo/centos7/epel/
+gpgcheck=0
+enabled=1

@@ -1,0 +1,15 @@
+[rabbitmq]
+node1.opta.com
+
+[airflow]
+node3.opta.com
+
+[mariadb]
+node3.opta.com
+
+[cluster_hosts:children]
+rabbitmq
+airflow
+
+[jump_host]
+bare2.opta.com

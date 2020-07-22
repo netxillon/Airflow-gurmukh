@@ -1,0 +1,28 @@
+# © 2019 Netxillon Technologies.
+# ------------------------------
+# Author: Gurmukh Singh
+# Email: trainings@netxillon.com
+# Date: 22-06-2020
+# ------------------------------
+
+# You are free to use these as long as you acknowledge it back to the source and give due credit.
+
+# ****************************************WARNING************************
+# There is no guarantee for the use of these scripts/roles and the author
+# is in no way liable for any damange caused by the use of these scripts.
+# ************************************************************************
+[Unit]
+Description=Airflow scheduler daemon
+
+[Service]
+EnvironmentFile={{ airflow_home }}/airflow.cfg
+User={{ airflow_user }}
+Group={{ airflow_group }}
+Type=simple
+ExecStart=/usr/local/bin/airflow scheduler -n ${SCHEDULER_RUNS} --pid {{ airflow_pidfile_folder }}/scheduler.pid
+Restart=always
+RestartSec=5s
+RuntimeDirectory=airflow
+
+[Install]
+WantedBy=multi-user.target

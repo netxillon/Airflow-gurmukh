@@ -1,0 +1,23 @@
+# © 2019 Netxillon Technologies.
+# ------------------------------
+# Author: Gurmukh Singh
+# Email: trainings@netxillon.com
+# Date: 22-06-2020
+# ------------------------------
+
+# You are free to use these as long as you acknowledge it back to the source and give due credit.
+
+# ****************************************WARNING************************
+# There is no guarantee for the use of these scripts/roles and the author
+# is in no way liable for any damange caused by the use of these scripts.
+# ************************************************************************
+
+---
+- hosts: cluster_hosts,!{{host}}
+  become: yes
+  vars:
+    reboot: notnow
+    host: "{{ groups.jump_host[0] }}"
+  roles:
+    - { role: reboot-nodes } # Reboot nodes
+

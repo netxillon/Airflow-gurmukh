@@ -1,0 +1,33 @@
+# © 2019 Netxillon Technologies.
+# ------------------------------
+# Author: Gurmukh Singh
+# Email: trainings@netxillon.com
+# Date: 22-06-2020
+# ------------------------------
+
+# You are free to use these as long as you acknowledge it back to the source and give due credit.
+
+# ****************************************WARNING************************
+# There is no guarantee for the use of these scripts/roles and the author
+# is in no way liable for any damange caused by the use of these scripts.
+# ************************************************************************
+---
+
+- name: Remove JDK 1.6 from all Nodes
+  yum: name={{item}} state=removed
+  with_items:
+        - jdk-1.6.0_31-fcs.x86_64
+
+- name: Install Java Packages
+  yum:  name={{item}} state=installed
+  with_items:
+        - java-1.8.0-openjdk.x86_64
+        - java-1.8.0-openjdk-devel.x86_64
+
+- name: Set JAVA_HOME
+  copy:
+    src: files/java.sh
+    dest: /etc/profile.d/java.sh
+    owner: root
+    group: root
+    mode: '0644'

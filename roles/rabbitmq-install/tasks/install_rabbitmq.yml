@@ -1,0 +1,36 @@
+# © 2019 Netxillon Technologies.
+# ------------------------------
+# Author: Gurmukh Singh
+# Email: trainings@netxillon.com
+# Date: 22-06-2020
+# ------------------------------
+
+# You are free to use these as long as you acknowledge it back to the source and give due credit.
+
+# ****************************************WARNING************************
+# There is no guarantee for the use of these scripts/roles and the author
+# is in no way liable for any damange caused by the use of these scripts.
+# ************************************************************************
+
+---
+- name: Install System Packages
+  yum:  name={{item}} state=installed
+  with_items:
+        - rabbitmq-server
+
+# Create a queue on remote host
+- rabbitmq_queue:
+    name: "{{ mq_queue }}"
+    login_user: "{{ mq_user }}"
+    login_password: "{{ mq_passwd }}"
+    login_host: "{{ groups.rabbitmq[0] }}"
+
+- name: Enables the rabbitmq_management plugin
+  rabbitmq_plugin:
+    names: rabbitmq_management
+    state: enabled
+
+- name: Start Required Services
+  service: name={{item}} state=restarted enabled=yes
+  with_items:
+        - rabbitmq-server

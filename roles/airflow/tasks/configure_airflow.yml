@@ -1,0 +1,33 @@
+# © 2019 Netxillon Technologies.
+# ------------------------------
+# Author: Gurmukh Singh
+# Email: trainings@netxillon.com
+# Date: 22-06-2020
+# ------------------------------
+
+# You are free to use these as long as you acknowledge it back to the source and give due credit.
+
+# ****************************************WARNING************************
+# There is no guarantee for the use of these scripts/roles and the author
+# is in no way liable for any damange caused by the use of these scripts.
+# ************************************************************************
+
+---
+#- name: Configure Airflow
+#  shell: export AIRFLOW_HOME="{{ airflow_location }}"; airflow initdb
+#  ignore_errors: yes
+
+- name: Airflow Initialization
+  command: airflow initdb
+  environment:
+     AIRFLOW_HOME: "{{ airflow_home }}"
+
+- name: Create a directory for logs, plugins, dags
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  with_items:
+    - "{{ airflow_home }}/dags"
+    - "{{ airflow_home }}/logs"
+    - "{{ airflow_home }}/plugins"

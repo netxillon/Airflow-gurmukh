@@ -1,0 +1,43 @@
+# © 2019 Netxillon Technologies.
+# ------------------------------
+# Author: Gurmukh Singh
+# Email: trainings@netxillon.com
+# Date: 22-06-2020
+# ------------------------------
+
+# You are free to use these as long as you acknowledge it back to the source and give due credit.
+
+# ****************************************WARNING************************
+# There is no guarantee for the use of these scripts/roles and the author
+# is in no way liable for any damange caused by the use of these scripts.
+# ************************************************************************
+#
+#java_home:                      "/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.252.b09-2.el7_8.x86_64"
+
+#airflow_location:               "{{ lookup('env', 'AIRFLOW_HOME') | lower }}"
+
+airflow_user:			 "root"
+airflow_group:			 "root"
+airflow_home:			 "/opt/airflow"
+airflow_parallelism:             32
+airflow_dag_concurrency:         16
+airflow_dags_are_paused_at_creation: True
+airflow_max_active_runs_per_dag: 5
+airflow_scheduler_runs:		 2
+airflow_pidfile_folder:          "/run/airflow"
+
+mysql_port:                     3306
+pip_version:			"3"
+
+# Ansible User
+ansible_user:                   "root"
+
+executor_type:                  "CeleryExecutor"
+mysql_user:                     "airflow"
+mysql_passwd:                   "airflow"
+mysql_host:                     "{{groups.mariadb[0]}}"
+airflow_db:                     "airflow"
+mq_user:                        "guest"
+mq_passwd:                      "guest"
+mq_host:                        "{{groups.rabbitmq[0]}}"
+mq_queue:                       "airflow"

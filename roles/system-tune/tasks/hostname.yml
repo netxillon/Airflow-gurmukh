@@ -1,0 +1,28 @@
+# © 2019 Netxillon Technologies.
+# ------------------------------
+# Author: Gurmukh Singh
+# Email: trainings@netxillon.com
+# Date: 22-06-2020
+# ------------------------------
+
+# You are free to use these as long as you acknowledge it back to the source and give due credit.
+
+# ****************************************WARNING************************
+# There is no guarantee for the use of these scripts/roles and the author
+# is in no way liable for any damange caused by the use of these scripts.
+# ************************************************************************
+
+---
+- name: remove ipv4 'localhost.localdomain' from /etc/hosts
+  lineinfile: dest=/etc/hosts state=absent regexp="^127.0.0.1(.*)localdomain(.*)$" backup=yes
+
+- name: remove ipv6 'localhost.localdomain' from /etc/hosts
+  lineinfile: dest=/etc/hosts state=absent regexp="^::1(.*)localdomain(.*)$" backup=yes
+
+- name: Add localhost to /etc/hosts
+  lineinfile: dest=/etc/hosts line="127.0.0.1   localhost"
+
+#- name: Build Reverse lookup
+#  lineinfile: dest=/etc/hosts state=present regexp='.*{{ item }}$' line="{{ hostvars[item].ansible_default_ip4.address }} {{item}}"
+#  when: hostvars[item].ansible_default_ip4.address is defined
+#  with_items: groups['all']

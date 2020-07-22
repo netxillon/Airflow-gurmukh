@@ -1,0 +1,6 @@
+# mariadb.repo
+[mariadb10.5.4]
+name=MariaDB 10.5.4
+baseurl=http://download.nus.edu.sg/mirror/mariadb//mariadb-10.5.4/yum/centos74-amd64/
+gpgcheck=0
+enabled=1

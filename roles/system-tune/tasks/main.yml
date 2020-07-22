@@ -1,0 +1,25 @@
+# © 2019 Netxillon Technologies.
+# ------------------------------
+# Author: Gurmukh Singh
+# Email: trainings@netxillon.com
+# Date: 22-06-2020
+# ------------------------------
+
+# You are free to use these as long as you acknowledge it back to the source and give due credit.
+
+# ****************************************WARNING************************
+# There is no guarantee for the use of these scripts/roles and the author
+# is in no way liable for any damange caused by the use of these scripts.
+# ************************************************************************
+
+---
+- include_tasks: hostname.yml
+#- include_tasks: centos.yml
+- include_tasks: thp.yml
+- include_tasks: rng.yml
+- include_tasks: iptables.yml
+- include_tasks: selinux.yml
+- include_tasks: sysctl.yml
+- include_tasks: ulimit.yml
+- include_tasks: umask.yml
+
