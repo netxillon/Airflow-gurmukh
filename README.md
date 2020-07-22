@@ -22,6 +22,7 @@ Have setup the **"Make"** file to make execution of scripts easy. Also, make a n
 and pip should be able to pull packages from the internet.
 
 This section enables pass-phraseless access and set sudoers for non root users the install user
+```
 **first_step:**
 	ansible all  -m authorized_key -a "user='centos' state='present' key='{{ lookup('file', '~/.ssh/id_rsa.pub')}}'" -i inventory/test/airflow_hosts -k
 	ansible-playbook playbooks/set_sudoers.yml -i inventory/test/airflow_hosts -k -K
@@ -31,7 +32,7 @@ cluster_prereqs:
 	ansible-playbook playbooks/cluster-install.yml -i inventory/test/airflow_hosts  --tags tune-os
 	ansible-playbook playbooks/cluster-install.yml -i inventory/test/airflow_hosts  --tags os-packages
 
- The below action reboot the nodes
+The below action reboot the nodes
 cluster_reboot:
 	ansible-playbook playbooks/reboot.yml -i inventory/test/airflow_hosts --extra-vars reboot=now
 
@@ -43,6 +44,7 @@ cluster_install_airflow_rabbitmq:
 Install MariaDB
 cluster_install_mariadb:
 	ansible-playbook playbooks/cluster-install.yml -i inventory/test/airflow_hosts  --tags mariadb
+```
 
 Execution can be as:
 ```
