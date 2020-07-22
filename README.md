@@ -1,5 +1,14 @@
-# Airflow-gurmukh
-This is ansible to deploy airflow and Daemonize them
+# © 2019 Netxillon Technologies.
+# Author: Gurmukh Singh
+# Email: trainings@netxillon.com
+# Date: 22-06-2020
+
+# You are free to use these as long as you acknowledge it back to the source and give due credit.
+
+# ****************************************WARNING************************
+# There is no guarantee for the use of these scripts/roles and the author
+# is in no way liable for any damange caused by the use of these scripts.
+# ************************************************************************
 
 This playbook does the below:
 
@@ -13,18 +22,6 @@ This playbook does the below:
 
 Have setup the "Make" file to make execution of scripts easy. Also, make a note that for this to work you must have access to OS repositories
 and pip should be able to pull packages from the internet.
-
-# © 2019 Netxillon Technologies.
-# Author: Gurmukh Singh
-# Email: trainings@netxillon.com
-# Date: 22-06-2020
-
-# You are free to use these as long as you acknowledge it back to the source and give due credit.
-
-# ****************************************WARNING************************
-# There is no guarantee for the use of these scripts/roles and the author
-# is in no way liable for any damange caused by the use of these scripts.
-# ************************************************************************
 
 # This section enables pass-phraseless access and set sudoers for non root users the install user
 first_step:
