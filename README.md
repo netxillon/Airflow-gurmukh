@@ -1,13 +1,13 @@
-# © 2019 Netxillon Technologies.
-# Author: Gurmukh Singh
-# Email: trainings@netxillon.com
-# Date: 22-06-2020
+## © 2019 Netxillon Technologies.
+## Author: Gurmukh Singh
+## Email: trainings@netxillon.com
+## Date: 22-06-2020
 
-# You are free to use these as long as you acknowledge it back to the source and give due credit.
-# There is no guarantee for the use of these scripts/roles and the author
-# is in no way liable for any damange caused by the use of these scripts.
+##### You are free to use these as long as you acknowledge it back to the source and give due credit.
+##### There is no guarantee for the use of these scripts/roles and the author
+##### is in no way liable for any damange caused by the use of these scripts.
 
-This playbook does the below:
+**This playbook does the below:
 
 1. Setup ssh passphraseless access and sudoers files if needed.
 2. Optimize the Centos/RedHat machines in terms of sysctl, limits, network, swap, SElinux, THP
@@ -16,6 +16,7 @@ This playbook does the below:
 5. Install and configure Rabbitmq
 6. Install and Configure Airflow
 7. Install MariaDB and Configre it for Airflow if needed.
+**
 
 Have setup the "Make" file to make execution of scripts easy. Also, make a note that for this to work you must have access to OS repositories
 and pip should be able to pull packages from the internet.
