@@ -20,33 +20,33 @@ This playbook does the below:
 Have setup the "Make" file to make execution of scripts easy. Also, make a note that for this to work you must have access to OS repositories
 and pip should be able to pull packages from the internet.
 
-# This section enables pass-phraseless access and set sudoers for non root users the install user
+This section enables pass-phraseless access and set sudoers for non root users the install user
 first_step:
 	ansible all  -m authorized_key -a "user='centos' state='present' key='{{ lookup('file', '~/.ssh/id_rsa.pub')}}'" -i inventory/test/airflow_hosts -k
 	ansible-playbook playbooks/set_sudoers.yml -i inventory/test/airflow_hosts -k -K
 
-# The below action does installation of system packages and OS tuning
+The below action does installation of system packages and OS tuning
 cluster_prereqs:
 	ansible-playbook playbooks/cluster-install.yml -i inventory/test/airflow_hosts  --tags tune-os
 	ansible-playbook playbooks/cluster-install.yml -i inventory/test/airflow_hosts  --tags os-packages
 
-# The below action reboot the nodes
+ The below action reboot the nodes
 cluster_reboot:
 	ansible-playbook playbooks/reboot.yml -i inventory/test/airflow_hosts --extra-vars reboot=now
 
-# The below action install Ambari Server on the designated node
+The below action install Ambari Server on the designated node
 cluster_install_airflow_rabbitmq:
 	ansible-playbook playbooks/cluster-install.yml -i inventory/test/airflow_hosts  --tags rabbitmq-install
 	ansible-playbook playbooks/cluster-install.yml -i inventory/test/airflow_hosts  --tags airflow
 
-# Install MariaDB
+Install MariaDB
 cluster_install_mariadb:
 	ansible-playbook playbooks/cluster-install.yml -i inventory/test/airflow_hosts  --tags mariadb
 
-# Execution can be as:
+Execution can be as:
 
-# make cluster_prereqs
-# make cluster_install_airflow_rabbitmq
-# make cluster_install_mariadb
-# make cluster_reboot # This is to reboot all the nodes except the node from which ansible is executed. This is to apply the changes like Selinux etc and make OS boots
+make cluster_prereqs
+make cluster_install_airflow_rabbitmq
+make cluster_install_mariadb
+make cluster_reboot # This is to reboot all the nodes except the node from which ansible is executed. This is to apply the changes like Selinux etc and make OS boots
 up after the tunnings using "make cluster_prereqs"
