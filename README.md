@@ -15,11 +15,9 @@ Have setup the "Make" file to make execution of scripts easy. Also, make a note 
 and pip should be able to pull packages from the internet.
 
 # © 2019 Netxillon Technologies.
-# ------------------------------
 # Author: Gurmukh Singh
 # Email: trainings@netxillon.com
 # Date: 22-06-2020
-# ------------------------------
 
 # You are free to use these as long as you acknowledge it back to the source and give due credit.
 
@@ -58,5 +56,3 @@ cluster_install_mariadb:
 # make cluster_install_mariadb
 # make cluster_reboot # This is to reboot all the nodes except the node from which ansible is executed. This is to apply the changes like Selinux etc and make OS boots
 up after the tunnings using "make cluster_prereqs"
-
-
