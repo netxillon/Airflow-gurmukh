@@ -16,7 +16,7 @@
 Description=Airflow webserver daemon
 
 [Service]
-EnvironmentFile={{ airflow_home }}/airflow.cfg
+EnvironmentFile={{ airflow_env }}
 User={{ airflow_user }}
 Group={{ airflow_group }}
 Type=simple

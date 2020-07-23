@@ -13,7 +13,7 @@
 # ************************************************************************
 ---
 
-#- include_tasks: install_airflow.yml
-#- include_tasks: configure_airflow.yml
-#- include_tasks: push_config.yml
+- include_tasks: install_airflow.yml
+- include_tasks: configure_airflow.yml
+- include_tasks: push_config.yml
 - include_tasks: daemonize.yml

@@ -13,10 +13,6 @@
 # ************************************************************************
 
 ---
-#- name: Configure Airflow
-#  shell: export AIRFLOW_HOME="{{ airflow_location }}"; airflow initdb
-#  ignore_errors: yes
-
 - name: Airflow Initialization
   command: airflow initdb
   environment:
@@ -31,3 +27,4 @@
     - "{{ airflow_home }}/dags"
     - "{{ airflow_home }}/logs"
     - "{{ airflow_home }}/plugins"
+    - "{{ airflow_pidfile_folder }}"

@@ -31,7 +31,7 @@
 
 - name: Start MySql Server
   ignore_errors: yes
-  service:       name=mariadb state=started enabled=yes
+  service:       name=mariadb state=restarted enabled=yes
 
 - name: Set password for Mysql Server
   command: mysqladmin -u root password {{ mysql_root }}

@@ -2,10 +2,14 @@
 node1.opta.com
 
 [airflow]
-node3.opta.com
+node1.opta.com
+#node3.opta.com
+
+[webserver]
+node1.opta.com
 
 [mariadb]
-node3.opta.com
+node1.opta.com
 
 [cluster_hosts:children]
 rabbitmq

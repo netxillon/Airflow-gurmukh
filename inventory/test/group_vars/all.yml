@@ -19,10 +19,12 @@
 airflow_user:			 "root"
 airflow_group:			 "root"
 airflow_home:			 "/opt/airflow"
-airflow_parallelism:             32
-airflow_dag_concurrency:         16
+airflow_env:			 "/etc/profile.d/airflow.env"
+
+airflow_parallelism:             10
+airflow_dag_concurrency:         4
 airflow_dags_are_paused_at_creation: True
-airflow_max_active_runs_per_dag: 5
+airflow_max_active_runs_per_dag: 4
 airflow_scheduler_runs:		 2
 airflow_pidfile_folder:          "/run/airflow"
 
@@ -33,6 +35,13 @@ pip_version:			"3"
 ansible_user:                   "root"
 
 executor_type:                  "CeleryExecutor"
+
+SCHEDULER_RUNS:			"2"
+airflow_webserver:		"{{groups.webserver[0]}}"
+airflow_default_timezone:	"Australia/Melbourne"
+airflow_ui_timezone:		"Australia/Melbourne"
+
+mysql_root:			"redhat"
 mysql_user:                     "airflow"
 mysql_passwd:                   "airflow"
 mysql_host:                     "{{groups.mariadb[0]}}"

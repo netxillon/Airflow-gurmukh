@@ -12,13 +12,17 @@
 # is in no way liable for any damange caused by the use of these scripts.
 # ************************************************************************
 ---
+- name: Push Airflow Configurations
+  template:
+     src: airflow_env.yml
+     dest: "/etc/profile.d/airflow.env"
+     mode: 0644
 
 - name: Push Airflow Configurations
   template:
      src: airflow.yml
      dest: "{{ airflow_home }}/airflow.cfg"
      mode: 0644
-  tags: airflow
 
 - name: Airflow Initialization
   command: airflow initdb
@@ -27,7 +31,7 @@
   args:
      creates: /etc/airflow_configured
 
-- name: Create a Flag for MySql Root Password
+- name: Create a Flag for Airflow as Configured
   file:
      path: "/etc/airflow_configured"
      state: touch

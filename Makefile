@@ -26,11 +26,11 @@ cluster_prereqs:
 cluster_reboot:
 	ansible-playbook playbooks/reboot.yml -i inventory/test/airflow_hosts --extra-vars reboot=now
 
-# The below action install Ambari Server on the designated node
+# Install MariaDB before executing the next step in Maridb is not already configured.
+cluster_install_mariadb:
+        ansible-playbook playbooks/cluster-install.yml -i inventory/test/airflow_hosts  --tags mariadb
+
+# The below action install Rabbitmq and Airflow
 cluster_install_airflow_rabbitmq:
 	ansible-playbook playbooks/cluster-install.yml -i inventory/test/airflow_hosts  --tags rabbitmq-install
 	ansible-playbook playbooks/cluster-install.yml -i inventory/test/airflow_hosts  --tags airflow
-
-# Install MariaDB
-cluster_install_mariadba:
-	ansible-playbook playbooks/cluster-install.yml -i inventory/test/airflow_hosts  --tags mariadb

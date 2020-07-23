@@ -15,11 +15,11 @@
 Description=Airflow scheduler daemon
 
 [Service]
-EnvironmentFile={{ airflow_home }}/airflow.cfg
+EnvironmentFile={{ airflow_env }}
 User={{ airflow_user }}
 Group={{ airflow_group }}
 Type=simple
-ExecStart=/usr/local/bin/airflow scheduler -n ${SCHEDULER_RUNS} --pid {{ airflow_pidfile_folder }}/scheduler.pid
+ExecStart=/usr/local/bin/airflow scheduler -n {{ SCHEDULER_RUNS }} --pid {{ airflow_pidfile_folder }}/scheduler.pid
 Restart=always
 RestartSec=5s
 RuntimeDirectory=airflow
