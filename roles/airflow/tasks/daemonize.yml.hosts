@@ -1,0 +1,74 @@
+# © 2019 Netxillon Technologies.
+# ------------------------------
+# Author: Gurmukh Singh
+# Email: trainings@netxillon.com
+# Date: 22-06-2020
+# ------------------------------
+
+# You are free to use these as long as you acknowledge it back to the source and give due credit.
+
+# ****************************************WARNING************************
+# There is no guarantee for the use of these scripts/roles and the author
+# is in no way liable for any damange caused by the use of these scripts.
+# ************************************************************************
+
+---
+- hosts: airflow_scheduler
+  tasks:
+    - name: Scheduler Service
+      template:
+        src:   scheduler.service
+        dest:  /etc/systemd/system/airflow-scheduler.service
+        owner: root
+        group: root
+        mode:  0644
+
+    - name: Issue daemon-reload to pick up config changes
+      systemd:
+        daemon_reload: yes
+
+    - name: Ensure Scheduler Service is Started
+      service:
+        name:    airflow-scheduler
+        state:   restarted
+        enabled: yes
+
+- hosts: airflow_webserver
+  tasks:
+    - name: Webserver Service
+      template:
+        src:   webserver.service
+        dest:  /etc/systemd/system/airflow-webserver.service
+        owner: root
+        group: root
+        mode:  0644
+   
+    - name: Issue daemon-reload to pick up config changes
+      systemd:
+        daemon_reload: yes
+
+    - name: Ensure Webserver Service is Started
+      service:
+        name:    airflow-webserver
+        state:   restarted
+        enabled: yes
+
+- hosts: airflow_worker
+  tasks:
+    - name: Worker Service
+      template:
+        src:   worker.service
+        dest:  /etc/systemd/system/airflow-worker.service
+        owner: root
+        group: root
+        mode:  0644
+
+    - name: Issue daemon-reload to pick up config changes
+      systemd:
+        daemon_reload: yes
+
+    - name: Ensure Worker Service is Started
+      service:
+        name:    airflow-worker
+        state:   restarted
+        enabled: yes

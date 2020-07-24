@@ -6,7 +6,7 @@ node2.opta.com
 node3.opta.com
 
 [airflow_webserver]
-node1.opta.com
+node1.opta.com 
 node2.opta.com
 
 [airflow_scheduler]
@@ -23,6 +23,7 @@ node1.opta.com
 [cluster_hosts:children]
 rabbitmq
 airflow
+#mariadb #uncomment this entry if the mariadb is managed by you and not by a dedicated DBA team and also the DB node is otehr then the airflow nodes
 
 [jump_host]
 bare2.opta.com

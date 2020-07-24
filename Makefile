@@ -28,7 +28,7 @@ cluster_reboot:
 
 # Install MariaDB before executing the next step in Maridb is not already configured.
 cluster_install_mariadb:
-        ansible-playbook playbooks/cluster-install.yml -i inventory/test/airflow_hosts  --tags mariadb
+	ansible-playbook playbooks/cluster-install.yml -i inventory/test/airflow_hosts  --tags mariadb
 
 # The below action install Rabbitmq and Airflow
 cluster_install_airflow_rabbitmq:

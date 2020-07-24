@@ -55,7 +55,7 @@
    name: '{{ mysql_user }}'
    password: '{{ mysql_passwd }}'
    priv: '{{ airflow_db }}.*:ALL'
-   host: 'localhost'
+   host: '%'
    state: present
    login_user: root
    login_password: '{{ mysql_root }}'

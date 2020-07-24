@@ -11,7 +11,9 @@
 # There is no guarantee for the use of these scripts/roles and the author
 # is in no way liable for any damange caused by the use of these scripts.
 # ************************************************************************
+
 ---
+
 - name: Scheduler Service
   template:
      src:   scheduler.service
@@ -19,16 +21,14 @@
      owner: root
      group: root
      mode:  0644
-  when: inventory_hostname in groups['airflow_scheduler']
 
-- name: Webserver Service
+- name: Worker Service
   template:
      src:   webserver.service
      dest:  /etc/systemd/system/airflow-webserver.service
      owner: root
      group: root
      mode:  0644
-  when: inventory_hostname in groups['airflow_webserver']
 
 - name: Worker Service
   template:
@@ -37,7 +37,6 @@
      owner: root
      group: root
      mode:  0644
-  when: inventory_hostname in groups['airflow_worker']
 
 - name: Issue daemon-reload to pick up config changes
   systemd:
@@ -48,19 +47,15 @@
     name:    airflow-scheduler
     state:   restarted
     enabled: yes
-  when: inventory_hostname in groups['airflow_scheduler']
 
 - name: Ensure WebServer Service is Started
   service:
     name:    airflow-webserver
     state:   restarted
     enabled: yes
-  when: inventory_hostname in groups['airflow_webserver']
 
 - name: Ensure Worker Service is Started
   service:
     name:    airflow-worker
     state:   restarted
     enabled: yes
-  when: inventory_hostname in groups['airflow_worker']
-
