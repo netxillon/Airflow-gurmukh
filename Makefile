@@ -7,7 +7,7 @@
 
 # You are free to use these as long as you acknowledge it back to the source and give due credit.
 
-**WARNING**
+# **WARNING**
 # There is no guarantee for the use of these scripts/roles and the author is in no way liable for any damange caused by the use of these scripts.
 
 # This section enables pass-phraseless access and set sudoers for non root users the install user
