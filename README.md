@@ -11,7 +11,7 @@
 ```
 
 <p align="center">
-  <img src="airflow.jpg" width="350" alt="Airflow Architecture">
+  <img src="airflow.jpg" width="650" alt="Airflow Architecture">
 </p>
 
 ##### This playbook does the below:
