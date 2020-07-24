@@ -16,12 +16,12 @@
 ##### This playbook does the below:
 
 >1. Setup ssh passphraseless access and sudoers files if needed.
->2. Optimize the Centos/RedHat machines in terms of sysctl, limits, network, swap, SElinux, THP
->3. Install Utility packages
->4. Install prequisists for Airflow, rabbitmq
+>2. Optimize the Centos/RedHat machines in terms of entropy, sysctl, ulimits, network, swap, Selinux, THP, file descriptors etc
+>3. Install Utility packages - ntp, devel packages, epel-release etc
+>4. Install prequisists for Airflow, rabbitmq (pip3 and python3)
 >5. Install and configure Rabbitmq
 >6. Install and Configure Airflow
->7. Install MariaDB and Configre it for Airflow if needed.
+>7. Install MariaDB and Configre it for Airflow if needed. This is MariaDB10.5 as minimum needed is 10.2
 >8. Setup HAProxy to point to the webservers
 
 **Make sure you understand YAML and make. YAML does not like "Tabs" but "make" loves it.**
