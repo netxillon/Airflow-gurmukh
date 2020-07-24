@@ -66,5 +66,5 @@ make cluster_install_mariadb
 make cluster_reboot
 make cluster_haproxy
 ```
-This is to reboot all the nodes except the node from which ansible is executed. This is to apply the changes like Selinux etc and make OS boots
-up after the tunnings using "make cluster_prereqs"
+cluster_reboot: This is to reboot all the nodes except the node from which ansible is executed. This is to apply the changes like Selinux etc and make OS boots
+up after applying various OS tunings parameters using "make cluster_prereqs"
