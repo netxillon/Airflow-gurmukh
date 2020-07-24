@@ -9,6 +9,9 @@
 # There is no guarantee for the use of these scripts/roles and the author
 # is in no way liable for any damange caused by the use of these scripts.
 ```
+
+![Alt text](airflow.jpg?raw=true "Airflow Architecture")
+
 ##### This playbook does the below:
 
 >1. Setup ssh passphraseless access and sudoers files if needed.
