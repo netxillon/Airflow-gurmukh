@@ -25,6 +25,7 @@
 >7. Install MariaDB and Configre it for Airflow if needed.
 
 **Make sure you understand YAML and make. YAML does not like "Tabs" but "make" loves it.**
+
 Have setup the **"Make"** file to make execution of scripts easy. Also, make a note that for this to work you must have access to OS repositories
 and pip should be able to pull packages from the internet.
 
