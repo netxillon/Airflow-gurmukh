@@ -26,6 +26,10 @@ cluster_prereqs:
 cluster_reboot:
 	ansible-playbook playbooks/reboot.yml -i inventory/test/airflow_hosts --extra-vars reboot=now
 
+# Install HAproxy
+cluster_haproxy:
+	ansible-playbook playbooks/cluster-install.yml -i inventory/test/airflow_hosts --tags haproxy
+
 # Install MariaDB before executing the next step in Maridb is not already configured.
 cluster_install_mariadb:
 	ansible-playbook playbooks/cluster-install.yml -i inventory/test/airflow_hosts  --tags mariadb

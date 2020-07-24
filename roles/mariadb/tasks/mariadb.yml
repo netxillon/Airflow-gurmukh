@@ -15,7 +15,7 @@
 - name: Setup MariaDB repo
   template: src=mariadb_repo.yml dest=/etc/yum.repos.d/mariadb105.repo
 
-- name:              Install Mysql Server and Clients on Ambari Server
+- name:              Install Mysql Server and Client
   yum:               name={{item}}
   with_items:
     - MariaDB-server

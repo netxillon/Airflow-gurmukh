@@ -23,6 +23,7 @@
 >5. Install and configure Rabbitmq
 >6. Install and Configure Airflow
 >7. Install MariaDB and Configre it for Airflow if needed.
+>8. Setup HAProxy to point to the webservers
 
 **Make sure you understand YAML and make. YAML does not like "Tabs" but "make" loves it.**
 
@@ -44,6 +45,10 @@ The below action reboot the nodes
 cluster_reboot:
 	ansible-playbook playbooks/reboot.yml -i inventory/test/airflow_hosts --extra-vars reboot=now
 
+# Install HAproxy
+cluster_haproxy:
+        ansible-playbook playbooks/cluster-install.yml -i inventory/test/airflow_hosts --tags haproxy
+
 # Install MariaDB before executing the next step in Maridb is not already configured.
 cluster_install_mariadb:
         ansible-playbook playbooks/cluster-install.yml -i inventory/test/airflow_hosts  --tags mariadb
@@ -60,6 +65,7 @@ make cluster_prereqs
 make cluster_install_airflow_rabbitmq
 make cluster_install_mariadb
 make cluster_reboot
+make cluster_haproxy
 ```
 This is to reboot all the nodes except the node from which ansible is executed. This is to apply the changes like Selinux etc and make OS boots
 up after the tunnings using "make cluster_prereqs"

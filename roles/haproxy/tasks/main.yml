@@ -11,30 +11,5 @@
 # There is no guarantee for the use of these scripts/roles and the author
 # is in no way liable for any damange caused by the use of these scripts.
 # ************************************************************************
-#
 ---
-- hosts: cluster_hosts 
-  become: true
-  roles:
-    - { role: system-tune,  tags: tune-os } # OS tuning like sysctl, iptables, ulimit etc
-    - { role: system-packages, tags: os-packages } # Needed Packages and Updates
-
-- hosts: airflow
-  become: true
-  roles:
-    - { role: airflow,  tags: airflow }
-
-- hosts: mariadb
-  become: true
-  roles:
-    - { role: mariadb,  tags: mariadb }
-
-- hosts: rabbitmq
-  become: true
-  roles:
-    - { role: rabbitmq-install,  tags: rabbitmq-install } 
-
-- hosts: haproxy
-  become: true
-  roles:
-    - { role: haproxy,  tags: haproxy }
+- include_tasks: haproxy.yml

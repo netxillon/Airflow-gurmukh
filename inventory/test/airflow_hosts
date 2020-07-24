@@ -1,3 +1,6 @@
+[haproxy]
+web.opta.com
+
 [rabbitmq]
 node1.opta.com
 
