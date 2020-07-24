@@ -1,12 +1,21 @@
 [rabbitmq]
 node1.opta.com
 
-[airflow]
-node1.opta.com
-#node3.opta.com
+[airflow_worker]
+node2.opta.com
+node3.opta.com
 
-[webserver]
+[airflow_webserver]
 node1.opta.com
+node2.opta.com
+
+[airflow_scheduler]
+node1.opta.com
+
+[airflow:children]
+airflow_worker
+airflow_webserver
+airflow_scheduler
 
 [mariadb]
 node1.opta.com

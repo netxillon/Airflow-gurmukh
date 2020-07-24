@@ -37,7 +37,7 @@ ansible_user:                   "root"
 executor_type:                  "CeleryExecutor"
 
 SCHEDULER_RUNS:			"2"
-airflow_webserver:		"{{groups.webserver[0]}}"
+airflow_webserver:		"{{groups.airflow_webserver[0]}}"
 airflow_default_timezone:	"Australia/Melbourne"
 airflow_ui_timezone:		"Australia/Melbourne"
 
