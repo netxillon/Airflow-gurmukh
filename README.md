@@ -11,8 +11,7 @@
 ```
 
 <p align="center">
-  <img src="your_relative_path_here" width="350" title="Airflow Architecture">
-  <img src="airflow.jpg" width="350" alt="accessibility text">
+  <img src="airflow.jpg" width="350" alt="Airflow Architecture">
 </p>
 
 ##### This playbook does the below:
