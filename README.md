@@ -10,7 +10,7 @@
 # is in no way liable for any damange caused by the use of these scripts.
 ```
 
-![Alt text](Airflow.jpg?raw=true "Airflow Architecture")
+![Alt text](airflow.jpg?raw=true "Airflow Architecture")
 
 ##### This playbook does the below:
 
