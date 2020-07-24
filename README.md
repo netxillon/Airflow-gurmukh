@@ -10,7 +10,10 @@
 # is in no way liable for any damange caused by the use of these scripts.
 ```
 
-![Alt text](airflow.jpg?raw=true "Airflow Architecture")
+<p align="center">
+  <img src="your_relative_path_here" width="350" title="Airflow Architecture">
+  <img src="airflow.jpg" width="350" alt="accessibility text">
+</p>
 
 ##### This playbook does the below:
 
