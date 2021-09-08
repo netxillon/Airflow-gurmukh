@@ -15,6 +15,8 @@
 
 ##### This playbook does the below:
 
+Updated for Airflow 2.x, as there are changes in terms of configs, commands and worker daemon.
+
 >1. Setup ssh passphraseless access and sudoers files if needed.
 >2. Optimize the Centos/RedHat machines in terms of entropy, sysctl, ulimits, network, swap, Selinux, THP, file descriptors etc
 >3. Install Utility packages - ntp, devel packages, epel-release etc
