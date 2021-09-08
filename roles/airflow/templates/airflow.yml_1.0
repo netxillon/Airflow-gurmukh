@@ -1,12 +1,27 @@
 [core]
 dags_folder = /opt/airflow/dags
 base_log_folder = /opt/airflow/logs
-hostname_callable = socket.getfqdn
-default_timezone = {{ airflow_default_timezone }}
+remote_logging = False
+remote_log_conn_id =
+remote_base_log_folder =
+encrypt_s3_logs = False
+logging_level = INFO
+fab_logging_level = WARN
 executor = {{ executor_type }}
 sql_alchemy_conn = mysql://{{ mysql_user }}:{{ mysql_passwd }}@{{ mysql_host }}:3306/{{ airflow_db }}
 result_backend = db+mysql://{{ mysql_user }}:{{ mysql_passwd }}@{{ mysql_host }}:3306/{{ airflow_db }}
 broker_url = amqp://{{mq_user}}:{{mq_passwd}}@{{ mq_host }}:5672/{{ mq_queue }}
+logging_config_class =
+colored_console_log = True
+colored_log_format = [%%(blue)s%%(asctime)s%%(reset)s] {{ '{' }}%%(blue)s%%(filename)s:%%(reset)s%%(lineno)d} %%(log_color)s%%(levelname)s%%(reset)s - %%(log_color)s%%(message)s%%(reset)s
+colored_formatter_class = airflow.utils.log.colored_log.CustomTTYColoredFormatter
+log_format = [%%(asctime)s] {{ '{' }}%%(filename)s:%%(lineno)d} %%(levelname)s - %%(message)s
+simple_log_format = %%(asctime)s %%(levelname)s - %%(message)s
+log_filename_template = {{ '{{' }} ti.dag_id {{ '}}' }}/{{ '{{' }} ti.task_id {{ '}}' }}/{{ '{{' }} ts {{ '}}' }}/{{ '{{' }} try_number {{ '}}' }}.log
+log_processor_filename_template = {{ '{{' }} filename {{ '}}' }}.log
+task_log_reader = task
+hostname_callable = socket:getfqdn
+default_timezone = {{ airflow_default_timezone }}
 sql_engine_encoding = utf-8
 sql_alchemy_pool_enabled = True
 sql_alchemy_pool_size = 5
@@ -15,88 +30,41 @@ sql_alchemy_pool_recycle = 1800
 sql_alchemy_pool_pre_ping = True
 sql_alchemy_schema =
 parallelism = {{ airflow_parallelism }}
-dag_concurrency = 16
+dag_concurrency = {{ airflow_dag_concurrency }}
 dags_are_paused_at_creation = {{ airflow_dags_are_paused_at_creation }}
 max_active_runs_per_dag = {{ airflow_max_active_runs_per_dag }}
 load_examples = True
 load_default_connections = True
 plugins_folder = /opt/airflow/plugins
-execute_tasks_new_python_interpreter = False
 fernet_key = 0pH3rP7S9v8LRxN_FlTnVycOcd9NGi3227tdekUCYU4=
-donot_pickle = True
-dagbag_import_timeout = 30.0
-dagbag_import_error_tracebacks = True
-dagbag_import_error_traceback_depth = 2
+donot_pickle = False
+dagbag_import_timeout = 30
 dag_file_processor_timeout = 50
 task_runner = StandardTaskRunner
 default_impersonation =
 security =
+secure_mode = False
 unit_test_mode = False
-enable_xcom_pickling = False
+enable_xcom_pickling = True
 killed_task_cleanup_time = 60
-dag_run_conf_overrides_params = True
+dag_run_conf_overrides_params = False
+worker_precheck = False
 dag_discovery_safe_mode = True
 default_task_retries = 0
+store_serialized_dags = False
 min_serialized_dag_update_interval = 30
-min_serialized_dag_fetch_interval = 10
 max_num_rendered_ti_fields_per_task = 30
 check_slas = True
-xcom_backend = airflow.models.xcom.BaseXCom
-lazy_load_plugins = True
-lazy_discover_providers = True
-max_db_retries = 3
-hide_sensitive_var_conn_fields = True
-sensitive_var_conn_names =
-[logging]
-base_log_folder = /opt/airflow/logs
-remote_logging = False
-remote_log_conn_id =
-google_key_path =
-remote_base_log_folder =
-encrypt_s3_logs = False
-logging_level = INFO
-fab_logging_level = WARN
-logging_config_class =
-colored_console_log = True
-colored_log_format = [%%(blue)s%%(asctime)s%%(reset)s] {{ '{' }}%%(blue)s%%(filename)s:%%(reset)s%%(lineno)d} %%(log_color)s%%(levelname)s%%(reset)s - %%(log_color)s%%(message)s%%(reset)s
-
-colored_formatter_class = airflow.utils.log.colored_log.CustomTTYColoredFormatter
-log_format = [%%(asctime)s] {{ '{' }}%%(filename)s:%%(lineno)d} %%(levelname)s - %%(message)s
-simple_log_format = %%(asctime)s %%(levelname)s - %%(message)s
-task_log_prefix_template =
-log_filename_template = {{ '{{' }} ti.dag_id {{ '}}' }}/{{ '{{' }} ti.task_id {{ '}}' }}/{{ '{{' }} ts {{ '}}' }}/{{ '{{' }} try_number {{ '}}' }}.log
-log_processor_filename_template = {{ '{{' }} filename {{ '}}' }}.log
-
-dag_processor_manager_log_location = /opt/airflow/logs/dag_processor_manager/dag_processor_manager.log
-task_log_reader = task
-extra_loggers =
-[metrics]
-statsd_on = False
-statsd_host = localhost
-statsd_port = 8125
-statsd_prefix = airflow
-statsd_allow_list =
-stat_name_handler =
-statsd_datadog_enabled = False
-statsd_datadog_tags =
 [secrets]
 backend =
 backend_kwargs =
 [cli]
 api_client = airflow.api.client.local_client
-endpoint_url = http://localhost:8080
+endpoint_url = http://{{ inventory_hostname }}:{{ airflow_webserver_port }}
 [debug]
 fail_fast = False
 [api]
-enable_experimental_api = False
 auth_backend = airflow.api.auth.backend.deny_all
-maximum_page_limit = 100
-fallback_page_limit = 100
-google_oauth2_audience =
-google_key_path =
-access_control_allow_headers =
-access_control_allow_methods =
-access_control_allow_origin =
 [lineage]
 backend =
 [atlas]
@@ -111,13 +79,11 @@ default_cpus = 1
 default_ram = 512
 default_disk = 512
 default_gpus = 0
-default_queue = {{ airflow_default_queue }}
-allow_illegal_arguments = False
 [hive]
 default_hive_mapred_queue =
 [webserver]
-base_url = http://localhost:8080
-default_ui_timezone = UTC
+base_url = http://{{ inventory_hostname }}:{{ airflow_webserver_port }}
+default_ui_timezone = {{ airflow_ui_timezone }}
 web_server_host = 0.0.0.0
 web_server_port = 8080
 web_server_ssl_cert =
@@ -125,26 +91,30 @@ web_server_ssl_key =
 web_server_master_timeout = 120
 web_server_worker_timeout = 120
 worker_refresh_batch_size = 1
-worker_refresh_interval = 6000
+worker_refresh_interval = 30
 reload_on_plugin_change = False
-secret_key = FFGfQ9Cy9U/mcupXyCYULQ==
+secret_key = temporary_key
 workers = 4
 worker_class = sync
 access_logfile = -
 error_logfile = -
-access_logformat =
 expose_config = False
 expose_hostname = True
 expose_stacktrace = True
+authenticate = False
+filter_by_owner = False
+owner_mode = user
 dag_default_view = tree
 dag_orientation = LR
+demo_mode = False
 log_fetch_timeout_sec = 5
 log_fetch_delay_sec = 2
 log_auto_tailing_offset = 30
 log_animation_speed = 1000
 hide_paused_dags_by_default = False
 page_size = 100
-navbar_color = #fff
+rbac = False
+navbar_color = #007A87
 default_dag_run_display_number = 25
 enable_proxy_fix = False
 proxy_fix_x_for = 1
@@ -153,39 +123,31 @@ proxy_fix_x_host = 1
 proxy_fix_x_port = 1
 proxy_fix_x_prefix = 1
 cookie_secure = False
-cookie_samesite = Lax
+cookie_samesite =
 default_wrap = False
 x_frame_enabled = True
-show_recent_stats_for_completed_runs = True
 update_fab_perms = True
-session_lifetime_minutes = 43200
+force_log_out_after = 0
+session_lifetime_days = 30
 [email]
 email_backend = airflow.utils.email.send_email_smtp
-email_conn_id = smtp_default
-default_email_on_retry = True
-default_email_on_failure = True
 [smtp]
 smtp_host = localhost
 smtp_starttls = True
 smtp_ssl = False
 smtp_port = 25
 smtp_mail_from = airflow@example.com
-smtp_timeout = 30
-smtp_retry_limit = 5
 [sentry]
-sentry_on = false
 sentry_dsn =
-[celery_kubernetes_executor]
-kubernetes_queue = kubernetes
 [celery]
 celery_app_name = airflow.executors.celery_executor
 worker_concurrency = 16
 worker_log_server_port = 8793
-worker_umask = 0o077
 flower_host = 0.0.0.0
 flower_url_prefix =
 flower_port = 5555
 flower_basic_auth =
+default_queue = {{ airflow_default_queue }}
 sync_parallelism = 0
 celery_config_options = airflow.config_templates.default_celery.DEFAULT_CELERY_CONFIG
 ssl_active = False
@@ -193,11 +155,7 @@ ssl_key =
 ssl_cert =
 ssl_cacert =
 pool = prefork
-operation_timeout = 1.0
-task_track_started = True
-task_adoption_timeout = 600
-task_publish_max_retries = 3
-worker_precheck = False
+operation_timeout = 2
 [celery_broker_transport_options]
 [dask]
 cluster_address = 127.0.0.1:8786
@@ -206,29 +164,47 @@ tls_cert =
 tls_key =
 [scheduler]
 job_heartbeat_sec = 5
-clean_tis_without_dagrun_interval = 15.0
 scheduler_heartbeat_sec = 5
+run_duration = -1
 num_runs = -1
 processor_poll_interval = 1
-min_file_process_interval = 30
+min_file_process_interval = 0
 dag_dir_list_interval = 300
 print_stats_interval = 30
-pool_metrics_interval = 5.0
 scheduler_health_check_threshold = 30
-orphaned_tasks_check_interval = 300.0
 child_process_log_directory = /opt/airflow/logs/scheduler
 scheduler_zombie_task_threshold = 300
 catchup_by_default = True
 max_tis_per_query = 512
-use_row_level_locking = True
-max_dagruns_to_create_per_loop = 10
-max_dagruns_per_loop_to_schedule = 20
-schedule_after_task_execution = True
-parsing_processes = 2
-file_parsing_sort_mode = modified_time
+statsd_on = False
+statsd_host = localhost
+statsd_port = 8125
+statsd_prefix = airflow
+statsd_allow_list =
+max_threads = 2
+authenticate = False
 use_job_schedule = True
 allow_trigger_in_future = False
-dependency_detector = airflow.serialization.serialized_objects.DependencyDetector
+[ldap]
+uri =
+user_filter = objectClass=*
+user_name_attr = uid
+group_member_attr = memberOf
+superuser_filter =
+data_profiler_filter =
+bind_user = cn=Manager,dc=example,dc=com
+bind_password = insecure
+basedn = dc=example,dc=com
+cacert = /etc/ca/ldap_ca.crt
+search_scope = LEVEL
+ignore_malformed_schema = False
+[mesos]
+master = localhost:5050
+framework_name = Airflow
+task_cpu = 1
+task_memory = 256
+checkpoint = False
+authenticate = False
 [kerberos]
 ccache = /tmp/airflow_krb5_ccache
 principal = airflow
@@ -237,6 +213,8 @@ kinit_path = kinit
 keytab = airflow.keytab
 [github_enterprise]
 api_rev = v3
+[admin]
+hide_sensitive_variable_fields = True
 [elasticsearch]
 host =
 end_of_log_mark = end_of_log
@@ -244,33 +222,58 @@ frontend =
 write_stdout = False
 json_format = False
 json_fields = asctime, filename, lineno, levelname, message
-host_field = host
-offset_field = offset
 [elasticsearch_configs]
 use_ssl = False
 verify_certs = True
 [kubernetes]
-pod_template_file =
 worker_container_repository =
+pod_template_file =
 worker_container_tag =
-namespace = default
+worker_container_image_pull_policy = IfNotPresent
 delete_worker_pods = True
 delete_worker_pods_on_failure = False
 worker_pods_creation_batch_size = 1
-multi_namespace_mode = False
+namespace = default
+airflow_configmap =
+airflow_local_settings_configmap =
+dags_in_image = False
+dags_volume_subpath =
+dags_volume_mount_point =
+dags_volume_claim =
+logs_volume_subpath =
+logs_volume_claim =
+dags_volume_host =
+logs_volume_host =
+env_from_configmap_ref =
+env_from_secret_ref =
+git_repo =
+git_branch =
+git_sync_depth = 1
+git_subpath =
+git_sync_rev =
+git_user =
+git_password =
+git_sync_root = /git
+git_sync_dest = repo
+git_dags_folder_mount_point =
+git_ssh_key_secret_name =
+git_ssh_known_hosts_configmap_name =
+git_sync_credentials_secret =
+git_sync_container_repository = k8s.gcr.io/git-sync
+git_sync_container_tag = v3.1.1
+git_sync_init_container_name = git-sync-clone
+git_sync_run_as_user = 65533
+worker_service_account_name =
+image_pull_secrets =
+gcp_service_account_keys =
 in_cluster = True
+affinity =
+tolerations =
 kube_client_request_args =
-delete_option_kwargs =
-enable_tcp_keepalive = True
-tcp_keep_idle = 120
-tcp_keep_intvl = 30
-tcp_keep_cnt = 6
-verify_ssl = True
-worker_pods_pending_timeout = 300
-worker_pods_pending_timeout_check_interval = 120
-worker_pods_pending_timeout_batch_size = 100
-[smart_sensor]
-use_smart_sensor = False
-shard_code_upper_limit = 10000
-shards = 5
-sensors_enabled = NamedHivePartitionSensor
+run_as_user = 50000
+fs_group =
+[kubernetes_node_selectors]
+[kubernetes_annotations]
+[kubernetes_environment_variables]
+[kubernetes_secrets]
+[kubernetes_labels]

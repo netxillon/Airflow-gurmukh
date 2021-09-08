@@ -13,40 +13,45 @@
 # ************************************************************************
 
 ---
-- name: Install Airflow PreReq
-  yum:  name={{item}} state=installed
-  with_items:
-   - mysql-devel
-   - openssl-devel
-   - python-setuptools
-   - python3
-   - python3-devel
-   - gcc
-   - zlib-devel
-   - bzip2-devel
-   - ncurses-devel
-   - sqlite-devel
-   - cyrus-sasl-devel.x86_64
-
+- name: install the package, force upgrade
+  pip:
+    name: pip
+    executable: pip3
+    state: latest
+- pip:
+    name: psycopg2
+    executable: "pip{{ pip_version }}"
+    state: forcereinstall
+  become: True
+- pip:
+    name: setuptools_rust
+    executable: "pip{{ pip_version }}"
+    state: forcereinstall
+  become: True
+- pip:
+    name: wheel
+    executable: "pip{{ pip_version }}"
+    state: forcereinstall
+  become: True
 - pip:
     name: mysqlclient
     executable: "pip{{ pip_version }}"
-    #state: forcereinstall
+    state: forcereinstall
   become: True
 - pip:
     name: cryptography
     executable: "pip{{ pip_version }}"
-    #state: forcereinstall
+    state: forcereinstall
   become: True
 - pip:
     name: apache-airflow
     executable: "pip{{ pip_version }}"
-    #state: forcereinstall
+    state: forcereinstall
   become: True
 - pip:
     name: apache-airflow[celery]
     executable: "pip{{ pip_version }}"
-    #state: forcereinstall
+    state: forcereinstall
     umask: "0022"
   become: True
 

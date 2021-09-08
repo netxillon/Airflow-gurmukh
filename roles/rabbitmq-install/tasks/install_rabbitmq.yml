@@ -14,7 +14,12 @@
 
 ---
 - name: Install System Packages
-  yum:  name={{item}} state=installed
+  yum:  name={{item}} state=latest
+  with_items:
+        - rabbitmq-server
+
+- name: Start Required Services
+  service: name={{item}} state=restarted enabled=yes
   with_items:
         - rabbitmq-server
 

@@ -12,8 +12,8 @@
 # is in no way liable for any damange caused by the use of these scripts.
 # ************************************************************************
 ---
-
+#- include_tasks: airflow_prereqs.yml
 #- include_tasks: install_airflow.yml
 #- include_tasks: configure_airflow.yml
-- include_tasks: push_config.yml
+#- include_tasks: push_config.yml
 - include_tasks: daemonize.yml

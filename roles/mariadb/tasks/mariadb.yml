@@ -18,8 +18,10 @@
 - name:              Install Mysql Server and Client
   yum:               name={{item}}
   with_items:
-    - MariaDB-server
-    - MariaDB-client
+    - MySQL-python
+    - mariadb-server
+    - mariadb-devel
+    - mariadb-libs
 
 - name:      Copy my.cnf file
   copy:
@@ -47,6 +49,8 @@
   mysql_db:
     name: '{{ airflow_db }}'
     state: present
+    collation: utf8_unicode_ci
+    encoding: utf8
     login_user: root
     login_password: '{{ mysql_root }}'
 

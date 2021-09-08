@@ -13,8 +13,13 @@
 # ************************************************************************
 
 ---
+- name: Set Lib Paths
+  ansible.builtin.shell: . /etc/profile.d/airflow.sh
+  args:
+    executable: /bin/bash
+
 - name: Airflow Initialization
-  command: airflow initdb
+  command: airflow db init
   environment:
      AIRFLOW_HOME: "{{ airflow_home }}"
 

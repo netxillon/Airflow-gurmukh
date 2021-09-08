@@ -21,13 +21,16 @@
 - name: Install Java Packages
   yum:  name={{item}} state=installed
   with_items:
-        - java-1.8.0-openjdk.x86_64
-        - java-1.8.0-openjdk-devel.x86_64
+        - java-1.8.0-openjdk-1.8.0.262.b10-0.el7_8.x86_64
+        - java-1.8.0-openjdk-devel-1.8.0.262.b10-0.el7_8.x86_64
 
-- name: Set JAVA_HOME
-  copy:
-    src: files/java.sh
-    dest: /etc/profile.d/java.sh
-    owner: root
-    group: root
-    mode: '0644'
+#- name: Set JAVA_HOME
+#  copy:
+#    src: files/java.sh
+#    dest: /etc/profile.d/java.sh
+#    owner: root
+#    group: root
+#    mode: '0644'
+
+- name: set Java_HOME
+  template: src=java.yml dest=/etc/profile.d/java.sh

@@ -12,20 +12,20 @@
 # is in no way liable for any damange caused by the use of these scripts.
 # ************************************************************************
 ---
-- name: Push Airflow Configurations
+- name: Push Airflow Env Configurations
   template:
      src: airflow_env.yml
-     dest: "/etc/profile.d/airflow.env"
+     dest: "/etc/profile.d/airflow.sh"
      mode: 0644
 
-- name: Push Airflow Configurations
+- name: Push Airflow Core Configuration File
   template:
      src: airflow.yml
      dest: "{{ airflow_home }}/airflow.cfg"
      mode: 0644
 
 - name: Airflow Initialization
-  command: airflow initdb
+  command: airflow db init
   environment:
      AIRFLOW_HOME: "{{ airflow_home }}"
   args:
@@ -35,3 +35,8 @@
   file:
      path: "/etc/airflow_configured"
      state: touch
+
+- name: Set Lib Paths
+  ansible.builtin.shell: . /etc/profile.d/airflow.sh
+  args:
+    executable: /bin/bash

@@ -1,0 +1,38 @@
+---
+- name: Install Airflow PreReq
+  yum:  name={{item}} state=installed
+  with_items:
+   - mysql-devel
+   - openssl-devel
+   - python-setuptools
+   - python3
+   - python3-devel
+   - gcc
+   - zlib-devel
+   - bzip2-devel
+   - ncurses-devel
+   - sqlite-devel
+   - cyrus-sasl-devel.x86_64
+   - make
+   - expect
+   - wget
+   - tar
+
+- name: Update Sqllite for sql_alchemy_conn
+  copy:
+    src:     files/sqlite.sh
+    dest:    /opt/sqlite.sh
+    owner:   root
+    group:   root
+    mode:    0544
+
+- name: Compile Sqlite greater then 3.15; needed for Airflow > 2.0
+  ansible.builtin.shell: ./sqlite.sh
+  args:
+    chdir: /opt
+    executable: /bin/bash
+
+- name: Set Lib Paths
+  ansible.builtin.shell: . /etc/profile.d/airflow.sh
+  args:
+    executable: /bin/bash

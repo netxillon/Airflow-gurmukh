@@ -12,7 +12,7 @@
 # is in no way liable for any damange caused by the use of these scripts.
 # ************************************************************************
 #
-#java_home:                      "/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.252.b09-2.el7_8.x86_64"
+java_home:                      "/usr/lib/jvm/jre-1.8.0-openjdk-1.8.0.262.b10-0.el7_8.x86_64"
 
 #airflow_location:               "{{ lookup('env', 'AIRFLOW_HOME') | lower }}"
 

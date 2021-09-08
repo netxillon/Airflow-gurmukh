@@ -12,6 +12,14 @@
 # is in no way liable for any damange caused by the use of these scripts.
 # ************************************************************************
 ---
+- name: Create PID Directory/Folder
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  with_items:
+    - "{{ airflow_pidfile_folder }}"
+
 - name: Scheduler Service
   template:
      src:   scheduler.service
