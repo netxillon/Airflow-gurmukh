@@ -31,6 +31,17 @@
 #    login_host: "{{ groups.rabbitmq[0] }}"
 #    vhost: /
 
+- rabbitmq_user:
+    user: "{{ mq_user }}"
+    password: "{{ mq_passwd }}"
+    permissions:
+      - vhost: /
+        configure_priv: .*
+        read_priv: .*
+        write_priv: .*
+    tags: administrator
+    state: present
+
 - name: Enables the rabbitmq_management plugin
   rabbitmq_plugin:
     names: rabbitmq_management

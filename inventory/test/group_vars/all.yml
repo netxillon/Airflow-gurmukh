@@ -44,6 +44,7 @@ airflow_webserver_host:	        "{{groups.airflow_webserver[0]}}"
 airflow_default_timezone:	"Australia/Melbourne"
 airflow_ui_timezone:		"Australia/Melbourne"
 airflow_default_queue:		"airflow"
+airflow_default_vhost:		"airflow"
 
 mysql_root:			"redhat"
 mysql_user:                     "airflow"
@@ -58,3 +59,4 @@ mq_passwd:                      "guest"
 
 mq_host:                        "{{groups.rabbitmq[0]}}"
 mq_queue:                       "{{airflow_default_queue}}"
+mq_vhost:                       "{{airflow_default_vhost}}"
