@@ -1,0 +1,46 @@
+# © 2019 Netxillon Technologies.
+# ------------------------------
+# Author: Gurmukh Singh
+# Email: trainings@netxillon.com
+# Date: 22-06-2020
+# ------------------------------
+
+# You are free to use these as long as you acknowledge it back to the source and give due credit.
+
+# ****************************************WARNING************************
+# There is no guarantee for the use of these scripts/roles and the author
+# is in no way liable for any damange caused by the use of these scripts.
+# ************************************************************************
+---
+- name: Setup MariaDB repo
+  template: src=mariadb_repo.yml dest=/etc/yum.repos.d/mariadb105.repo
+
+- name:              Install Mysql Server and Client
+  yum:               name={{item}}
+  with_items:
+    - MySQL-python
+    - mariadb-server
+    - mariadb-devel
+    - mariadb-libs
+
+- name:      Copy my.cnf file
+  copy:
+    src:     files/my.cnf
+    dest:    /etc/my.cnf
+    owner:   root
+    group:   root
+    mode:    0644
+
+- name: Start MySql Server
+  ignore_errors: yes
+  service:       name=mariadb state=restarted enabled=yes
+
+- name: Set password for Mysql Server
+  command: mysqladmin -u root password {{ mysql_root }}
+  args:
+     creates: /etc/mypasswd_is_set
+
+- name: Create a Flag for MySql Root Password
+  file:
+     path: "/etc/mypasswd_is_set"
+     state: touch

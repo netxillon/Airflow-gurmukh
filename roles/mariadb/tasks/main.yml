@@ -12,4 +12,5 @@
 # is in no way liable for any damange caused by the use of these scripts.
 # ************************************************************************
 ---
-- include_tasks: mariadb.yml
+#- include_tasks: install_mariadb.yml
+- include_tasks: mariadb_config.yml

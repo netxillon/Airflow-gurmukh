@@ -27,6 +27,8 @@ airflow_dags_are_paused_at_creation: True
 airflow_max_active_runs_per_dag: 4
 airflow_scheduler_runs:		 2
 airflow_pidfile_folder:          "/run/airflow"
+airflow_fernet_key:		 "0pH3rP7S9v8LRxN_FlTnVycOcd9NGi3227tdekUCYU4="
+# python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
 
 mysql_port:                     3306
 pip_version:			"3"
@@ -38,15 +40,21 @@ executor_type:                  "CeleryExecutor"
 
 SCHEDULER_RUNS:			"2"
 airflow_webserver_port:	        "8080"
+airflow_webserver_host:	        "{{groups.airflow_webserver[0]}}"
 airflow_default_timezone:	"Australia/Melbourne"
 airflow_ui_timezone:		"Australia/Melbourne"
 airflow_default_queue:		"airflow"
+
 mysql_root:			"redhat"
 mysql_user:                     "airflow"
 mysql_passwd:                   "airflow"
 mysql_host:                     "{{groups.mariadb[0]}}"
 airflow_db:                     "airflow"
+
+mq_login_user:                  "rabbit"
+mq_login_passwd:                "rabbit"
 mq_user:                        "guest"
 mq_passwd:                      "guest"
+
 mq_host:                        "{{groups.rabbitmq[0]}}"
 mq_queue:                       "{{airflow_default_queue}}"

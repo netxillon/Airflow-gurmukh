@@ -1,0 +1,42 @@
+# © 2019 Netxillon Technologies.
+# ------------------------------
+# Author: Gurmukh Singh
+# Email: trainings@netxillon.com
+# Date: 22-06-2020
+# ------------------------------
+
+# You are free to use these as long as you acknowledge it back to the source and give due credit.
+
+# ****************************************WARNING************************
+# There is no guarantee for the use of these scripts/roles and the author
+# is in no way liable for any damange caused by the use of these scripts.
+# ************************************************************************
+---
+- name: Create Database for Airflow
+  mysql_db:
+    name: '{{ airflow_db }}'
+    state: present
+    collation: utf8_unicode_ci
+    encoding: utf8
+    login_user: root
+    login_password: '{{ mysql_root }}'
+
+- name: Create Database user for Airflow
+  mysql_user:
+   name: '{{ mysql_user }}'
+   password: '{{ mysql_passwd }}'
+   priv: '{{ airflow_db }}.*:ALL'
+   host: '%'
+   state: present
+   login_user: root
+   login_password: '{{ mysql_root }}'
+
+- name: Create Database user for Airflow
+  mysql_user:
+   name: '{{ mysql_user }}'
+   password: '{{ mysql_passwd }}'
+   priv: '{{ airflow_db }}.*:ALL'
+   host: '{{ groups.airflow[0] }}'
+   state: present
+   login_user: root
+   login_password: '{{ mysql_root }}'

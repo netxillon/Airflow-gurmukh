@@ -24,6 +24,11 @@
     state: forcereinstall
   become: True
 - pip:
+    name: psycopg2-binary
+    executable: "pip{{ pip_version }}"
+    state: forcereinstall
+  become: True
+- pip:
     name: setuptools_rust
     executable: "pip{{ pip_version }}"
     state: forcereinstall
@@ -54,4 +59,13 @@
     state: forcereinstall
     umask: "0022"
   become: True
-
+- pip:
+    name: pyamqp
+    executable: "pip{{ pip_version }}"
+    state: forcereinstall
+  become: True
+- pip:
+    name: apache-airflow['cncf.kubernetes']
+    executable: "pip{{ pip_version }}"
+    state: forcereinstall
+  become: True
